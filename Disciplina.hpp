@@ -35,12 +35,18 @@ public:
     void adiciona_co_requisito(string codigo);
     void adiciona_requisitadas(string codigo);
 
+    string get_codigo(){ return _codigo;}
+    string get_nome(){ return _nome;}
+    int get_semestre(){ return _semestre;}
+    int get_prioridade(){ return _prioridade;}
+
+
     static void calcula_semestre(unordered_map<string, Disciplina*>&);
     static void calcula_prioridade(unordered_map<string, Disciplina*>&);
 
     friend ostream& operator<<(ostream& out, Disciplina& d);
 
-    ~Disciplina(){};
+    ~Disciplina(){}
 };
 
 #endif

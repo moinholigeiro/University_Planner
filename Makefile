@@ -24,8 +24,8 @@ valg: principal
 val: principal
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
 
-valg-saida: principal
+valg2: principal
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET) > saida.txt
 
-val-saida: principal
+val2: principal
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET) > saida.txt

@@ -74,17 +74,28 @@ void Disciplina::calcula_prioridade(unordered_map<string, Disciplina*>& disc){
 }
 
 ostream& operator<<(ostream& out, Disciplina& d){
-    out << "\'" << d._codigo << "\' \'" << d._nome << "\'" << endl;
+    out << d._codigo << " " << d._nome << endl;
 
-    if(!d.pre_requisito.empty()){
-        out << '\t' << "Pré-requisitos:" << endl;
-        for(string codigo : d.pre_requisito)
-            out << '\t' << '\t' << '\'' << codigo << '\'' << endl;
-    }
-    if(!d.co_requisito.empty()){
-        out << '\t' << "Co-requisitos:" << endl;
-        for(string codigo : d.co_requisito)
-            out << '\t' << '\t' << '\'' << codigo << '\'' << endl;
-    }
+    for(string codigo : d.pre_requisito)
+        out << '\t' << codigo << endl;
+    for(string codigo : d.co_requisito)
+        out << '\t' << '-' << codigo << endl;
+
     return out;
 }
+
+// ostream& operator<<(ostream& out, Disciplina& d){
+//     out << d._codigo << " " << d._nome << endl;
+
+//     if(!d.pre_requisito.empty()){
+//         out << '\t' << "Pré-requisitos:" << endl;
+//         for(string codigo : d.pre_requisito)
+//             out << '\t' << '\t' << codigo << endl;
+//     }
+//     if(!d.co_requisito.empty()){
+//         out << '\t' << "Co-requisitos:" << endl;
+//         for(string codigo : d.co_requisito)
+//             out << '\t' << '\t' << codigo << endl;
+//     }
+//     return out;
+// }
