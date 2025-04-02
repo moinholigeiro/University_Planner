@@ -75,7 +75,7 @@ int main(){
     Disciplina::calcula_semestre(disciplinas);
 
 
-    for (auto it = disciplinas.begin(); it != disciplinas.end(); it++)
+    for(auto it = disciplinas.begin(); it != disciplinas.end(); it++)
         disciplinas_list.push_back(it->second);
     
     disciplinas_list.sort(Disciplina::compara_semestre);
@@ -88,7 +88,7 @@ int main(){
         }
     }
 
-    for (auto it = disciplinas.begin(); it != disciplinas.end(); it++)
+    for(auto it = disciplinas.begin(); it != disciplinas.end(); it++)
         delete it->second;
 
     return 0;
