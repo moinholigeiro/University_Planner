@@ -30,6 +30,9 @@ public:
     Disciplina(string codigo, string nome);
     Disciplina(string codigo);
 
+    static bool compara_semestre(const Disciplina* d1, const Disciplina* d2);
+    static bool compara_prioridade(const Disciplina* d1, const Disciplina* d2);
+
     void adiciona_nome(string nome);
     void adiciona_pre_requisito(string codigo);
     void adiciona_co_requisito(string codigo);

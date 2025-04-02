@@ -16,6 +16,18 @@ Disciplina::Disciplina(string codigo, string nome) : _codigo(codigo), _nome(nome
 
 Disciplina::Disciplina(string codigo) : _codigo(codigo){}
 
+bool Disciplina::compara_semestre(const Disciplina* d1, const Disciplina* d2) {
+    if (d1->_semestre == d2->_semestre)
+        return d1->_codigo < d2->_codigo;
+    return d1->_semestre < d2->_semestre;
+}
+
+bool Disciplina::compara_prioridade(const Disciplina* d1, const Disciplina* d2) {
+    if (d1->_prioridade == d2->_prioridade)
+        return d1->_codigo < d2->_codigo;
+    return d1->_prioridade < d2->_prioridade;
+}
+
 void Disciplina::adiciona_nome(string nome){
     _nome = nome;
 }
