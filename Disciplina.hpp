@@ -18,6 +18,7 @@ private:
     string _nome = "";
     int _semestre = -1;
     int _prioridade = -1;
+    bool _ja_cursou = false;
 
     vector<string> pre_requisito;
     vector<string> co_requisito;
@@ -37,6 +38,10 @@ public:
     void adiciona_pre_requisito(string codigo);
     void adiciona_co_requisito(string codigo);
     void adiciona_requisitadas(string codigo);
+
+    void set_cursou(bool cursou){ _ja_cursou = cursou;}
+    
+    bool ja_cursou(){ return _ja_cursou;}
 
     string get_codigo(){ return _codigo;}
     string get_nome(){ return _nome;}

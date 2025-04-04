@@ -1,12 +1,10 @@
-
-// #include "Disciplina.hpp"
-
 #include "Disciplina.hpp"
 
 // string _codigo;
 // string _nome = "";
 // int _semestre = -1;
 // int _prioridade = -1;
+// bool ja_cursou = false;
 
 // vector<string> pre_requisito;
 // vector<string> co_requisito;
@@ -50,7 +48,8 @@ void Disciplina::_calcula_semestre(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_semestre < 0)
             disc[codigo]->_calcula_semestre(disc);
 
-        if(_semestre <= disc[codigo]->_semestre)
+        if(disc[codigo]->_ja_cursou);
+        else if(_semestre <= disc[codigo]->_semestre)
             _semestre = disc[codigo]->_semestre + 1;
     }
 
@@ -58,7 +57,8 @@ void Disciplina::_calcula_semestre(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_semestre < 0)
             disc[codigo]->_calcula_semestre(disc);
 
-        if(_semestre < disc[codigo]->_semestre)
+        if(disc[codigo]->_ja_cursou);
+        else if(_semestre < disc[codigo]->_semestre)
             _semestre = disc[codigo]->_semestre;
     }
 }
@@ -70,7 +70,8 @@ void Disciplina::_calcula_prioridade(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_prioridade < 0)
             disc[codigo]->_calcula_prioridade(disc);
 
-        if(_prioridade <= disc[codigo]->_prioridade)
+        if(disc[codigo]->_ja_cursou);
+        else if(_prioridade <= disc[codigo]->_prioridade)
             _prioridade = disc[codigo]->_prioridade + 1;
     }
 }
