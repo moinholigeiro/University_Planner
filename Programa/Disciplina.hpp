@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 #include <unordered_map>
 
@@ -16,22 +18,22 @@ private:
 
     string _codigo;
     string _nome = "";
-    int _semestre = -1;
+    int _periodo = -1;
     int _prioridade = -1;
     bool _ja_cursou = false;
 
     vector<string> pre_requisito;
     vector<string> co_requisito;
     vector<string> requisitadas;
-
-    void _calcula_semestre(unordered_map<string, Disciplina*>&);
-    void _calcula_prioridade(unordered_map<string, Disciplina*>&);
 public:
 
     Disciplina(string codigo, string nome);
     Disciplina(string codigo);
 
-    static bool compara_semestre(const Disciplina* d1, const Disciplina* d2);
+    void calcula_periodo(unordered_map<string, Disciplina*>&);
+    void calcula_prioridade(unordered_map<string, Disciplina*>&);
+
+    static bool compara_periodo(const Disciplina* d1, const Disciplina* d2);
     static bool compara_prioridade(const Disciplina* d1, const Disciplina* d2);
 
     void adiciona_nome(string nome);
@@ -45,12 +47,8 @@ public:
 
     string get_codigo(){ return _codigo;}
     string get_nome(){ return _nome;}
-    int get_semestre(){ return _semestre;}
+    int get_periodo(){ return _periodo;}
     int get_prioridade(){ return _prioridade;}
-
-
-    static void calcula_semestre(unordered_map<string, Disciplina*>&);
-    static void calcula_prioridade(unordered_map<string, Disciplina*>&);
 
     friend ostream& operator<<(ostream& out, Disciplina& d);
 
