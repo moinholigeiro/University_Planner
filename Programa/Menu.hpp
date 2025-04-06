@@ -2,34 +2,24 @@
 #define _MENU_HPP
 
 #include <iostream>
-#include <iomanip>
-#include <algorithm>
 #include <vector>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
 #include <functional>
+#include <string>
 
-#include <unordered_map>
+#include "Opcao.hpp"
 
 using namespace std;
 
-class Menu{
+class Menu {
 private:
-
-    class Opcao{
-    public:
-        string descricao;
-        void (*procedimento)(void*);
-    };
-
-    string titulo;
-    vector<Opcao> opcoes;
+    string _titulo;
+    vector<Opcao&> _opcoes;
 
 public:
+    Menu(string titulo) : _titulo(titulo) {}
 
-
+    void adicionar_opcao(const string& desc, function<void()> func);
+    void exibir();
 };
 
 #endif
