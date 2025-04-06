@@ -29,7 +29,9 @@ void Planejamento::_importa_grade(string caminho){
     string linha;
     string codigo, nome;
 
-    if(!input) throw Excecao("Arquivo \'" + caminho + "\' não encontrado!\n");
+    if(!input){
+        cerr << "Arquivo \'" << caminho << "\' não encontrado!" << endl;
+    }
 
     while (getline(input, linha)) {
         if(linha.empty()) break;
@@ -75,22 +77,14 @@ void Planejamento::_importa_grade(string caminho){
 }
 
 Planejamento::Planejamento(string caminho_grade, string caminho_feitos){
-    try{
-        _importa_feitas(caminho_feitos);
-        _importa_grade(caminho_grade);
-    
-        for (auto it = _disciplinas.begin(); it != _disciplinas.end(); ++it)
-            it->second->calcula_prioridade(_disciplinas);
+    _importa_feitas(caminho_feitos);
+    _importa_grade(caminho_grade);
 
-        for (auto it = _disciplinas.begin(); it != _disciplinas.end(); ++it)
-            it->second->calcula_periodo(_disciplinas);
+    for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
+        it->second->calcula_prioridade(_disciplinas);
 
-    } catch(const Excecao& e){
-        cerr << e.what();
-        cerr << "Confira o README.md para mais informações!" << endl;
-        cerr << "Encerrando..." << endl;
-        throw e;
-    }
+    for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
+        it->second->calcula_periodo(_disciplinas);
 }
 
 ostream& operator<<(ostream& out, Planejamento& p){

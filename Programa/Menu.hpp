@@ -8,6 +8,10 @@
 
 #include "Opcao.hpp"
 
+#include "Planejamento.hpp"
+
+#include "Excecao.hpp"
+
 using namespace std;
 
 class Menu {
@@ -18,8 +22,8 @@ private:
 public:
     Menu(string titulo) : _titulo(titulo) {}
 
-    void adicionar_opcao(const string& desc, function<void()> func);
-    void exibir();
+    void adicionar_opcao(const string& desc, function<void(Planejamento&)> func, Menu* sub_menu);
+    void exibir(Planejamento& p);
 };
 
 #endif

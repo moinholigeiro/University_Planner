@@ -34,6 +34,7 @@ public:
         DEBUG
     };
 
+    Planejamento() = default;
     Planejamento(string caminho_grade, string caminho_feitos);
 
     void set_modo_de_exportacao(MODO_DE_EXPORTAR modo){ _modo_de_exportacao = modo;}
