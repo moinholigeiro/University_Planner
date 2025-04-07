@@ -42,8 +42,7 @@ int main(){
 
             vector<string> opcoes = {
                 "Continuar após ter criado o arquivo",
-                "Ver exemplo de formatação correta para o arquivo",
-                "Encerrar programa"
+                "Ver exemplo de formatação correta para o arquivo"
             };
 
             menu.set_titulo("Erro ao criar planejamento");
@@ -68,8 +67,8 @@ int main(){
         "Créditos"
     };
     while(true){
-        cout << "\n\n" << endl;
         menu.exibir(opcoes, false);
+        cout << "\n\n" << endl;
 
         if(menu.opcao() == 1){
             planner->set_modo_de_exportacao(Planejamento::Por_periodo);

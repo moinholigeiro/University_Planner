@@ -59,6 +59,7 @@ void Planejamento::_importa_grade(string caminho){
 
     if(!input){
         cerr << "Arquivo \'" << caminho << "\' não encontrado!" << endl;
+        throw runtime_error("Arquivo não existe: " + caminho);
     }
 
     while (getline(input, linha)) {
@@ -105,8 +106,8 @@ void Planejamento::_importa_grade(string caminho){
 }
 
 Planejamento::Planejamento(string caminho_grade, string caminho_feitos){
-    _importa_feitas(caminho_feitos);
     _importa_grade(caminho_grade);
+    _importa_feitas(caminho_feitos);
 
     for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
         it->second->calcula_prioridade(_disciplinas);
