@@ -3,6 +3,34 @@
 
 #include "Planejamento.hpp"
 
+
+void Planejamento::exemplo_de_formatacao(ostream& out){
+    out << "Exemplo de formatação:" << endl;
+    out << "COD00001 NOME DA DISCIPLINA 1" << endl;
+    out << "\tCOD00002" << endl;
+    out << "\tCOD00003" << endl;
+    out << "\t-COD00004" << endl;
+    out << "COD00002 NOME DA DISCIPLINA 2" << endl;
+    out << "COD00003 NOME DA DISCIPLINA 3" << endl;
+    out << "COD00005 NOME DA DISCIPLINA 5" << endl;
+    out << "\t-COD00001" << endl;
+    out << "\tCOD00006" << endl;
+    out << "COD00004 NOME DA DISCIPLINA 4" << endl;
+    out << "COD00006 NOME DA DISCIPLINA 6" << endl;
+    out << endl;
+    out << "Perceba que:" << endl;
+    out << "\tO código da disciplina em questão é sempre a primeira \"palavra\" da linha, e não pode ter espaçamento. (Por exemplo, tem que ser \"COD12345\" e não \"COD 12345\")." << endl;
+    out << "\tO nome da disciplina em questão é o restante da linha." << endl;
+    out << "\tAs linhas que começam com um caractere em branco (espaço ou tab, por exemplo) e sem um '-' são pré-requisitos da disciplina em questão." << endl;
+    out << "\tAs linhas que começam com um caractere em branco (espaço ou tab, por exemplo) e com um '-' são co-requisitos da disciplina em questão." << endl;
+    out << endl;
+    out << "Ou seja, nesse caso:" << endl;
+    out << "\tA disciplina COD00001 tem como pré-requisitos as disciplinas COD00002 e COD00003 e como co-requisito a disciplina COD00004." << endl;
+    out << "\tA disciplina COD00005 tem como pré-requisito a disciplina COD00006 e como co-requisito a disciplina COD00001." << endl;
+    out << "\tNenhuma outra disciplina tem quaisquer pré-requisitos ou co-requisitos." << endl;
+    out << endl;
+}
+
 void Planejamento::_importa_feitas(string caminho){
     ifstream input(caminho);
     string linha;
@@ -38,7 +66,7 @@ void Planejamento::_importa_grade(string caminho){
 
         while(linha.back() <= ' ') linha.pop_back(); // Especialmente útil para formatação vinda de Windows ou entradas com caracteres em branco no final da linha
 
-        if (linha[0] == '\t' && _disciplinas[codigo]) {
+        if (linha[0] <= ' ' && _disciplinas[codigo]) {
             linha.erase(0, 1); // Remove '\t'
 
             if (linha[0] == '-') { // Aqui, a linha é de co-requisito da disciplina em questão
@@ -51,7 +79,7 @@ void Planejamento::_importa_grade(string caminho){
                 if(!_disciplinas[linha]) _disciplinas[linha] = new Disciplina(linha);
                 _disciplinas[linha]->adiciona_requisitadas(codigo);
             }
-        } else if (linha[0] == '\t' && !_disciplinas[codigo]) {
+        } else if (linha[0] <= ' ' && !_disciplinas[codigo]) {
             if (linha[0] == '-') {
                 linha.erase(0, 1); // Remove '-'
                 cout << "Erro! não foi possível identificar a disciplina pela qual \'" << linha << "\' seja co-requisito!" << endl;
@@ -87,13 +115,13 @@ Planejamento::Planejamento(string caminho_grade, string caminho_feitos){
         it->second->calcula_periodo(_disciplinas);
 }
 
-ostream& operator<<(ostream& out, Planejamento& p){
+ostream& operator<<(ostream& out, Planejamento* p){
     list<Disciplina*> disciplinas_list;
 
-    for(auto it = p._disciplinas.begin(); it != p._disciplinas.end(); it++)
+    for(auto it = p->_disciplinas.begin(); it != p->_disciplinas.end(); it++)
         disciplinas_list.push_back(it->second);
 
-    if(p._modo_de_exportacao == p.Por_periodo){
+    if(p->_modo_de_exportacao == p->Por_periodo){
         disciplinas_list.sort(Disciplina::compara_periodo);
 
         for(int i=0;!disciplinas_list.empty();i++){
@@ -105,7 +133,7 @@ ostream& operator<<(ostream& out, Planejamento& p){
             }
             out << endl;
         }
-    } else if(p._modo_de_exportacao == p.Por_prioridade){
+    } else if(p->_modo_de_exportacao == p->Por_prioridade){
         disciplinas_list.sort(Disciplina::compara_prioridade);
 
         for(int i=disciplinas_list.back()->get_prioridade();!disciplinas_list.empty() && i >= -1;i--){
@@ -117,8 +145,8 @@ ostream& operator<<(ostream& out, Planejamento& p){
             }
             out << endl;
         }
-    } else if(p._modo_de_exportacao == p.DEBUG){
-        for(auto it = p._disciplinas.begin(); it != p._disciplinas.end(); it++)
+    } else if(p->_modo_de_exportacao == p->DEBUG){
+        for(auto it = p->_disciplinas.begin(); it != p->_disciplinas.end(); it++)
             cout << *it->second;
     }
 

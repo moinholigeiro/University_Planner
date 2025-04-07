@@ -34,12 +34,14 @@ public:
         DEBUG
     };
 
-    Planejamento() = default;
+    // Planejamento() = default;
     Planejamento(string caminho_grade, string caminho_feitos);
+
+    static void exemplo_de_formatacao(ostream& out);
 
     void set_modo_de_exportacao(MODO_DE_EXPORTAR modo){ _modo_de_exportacao = modo;}
 
-    friend ostream& operator<<(ostream& out, Planejamento& p);
+    friend ostream& operator<<(ostream& out, Planejamento* p);
 
     ~Planejamento();
 };
