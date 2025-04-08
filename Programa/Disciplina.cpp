@@ -48,7 +48,7 @@ void Disciplina::calcula_periodo(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_periodo < 0)
             disc[codigo]->calcula_periodo(disc);
 
-        if(disc[codigo]->_ja_cursou);
+        if(disc[codigo]->_ja_cursou); // Se ja cursou, ignora
         else if(_periodo <= disc[codigo]->_periodo)
             _periodo = disc[codigo]->_periodo + 1;
     }
@@ -57,7 +57,7 @@ void Disciplina::calcula_periodo(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_periodo < 0)
             disc[codigo]->calcula_periodo(disc);
 
-        if(disc[codigo]->_ja_cursou);
+        if(disc[codigo]->_ja_cursou); // Se ja cursou, ignora
         else if(_periodo < disc[codigo]->_periodo)
             _periodo = disc[codigo]->_periodo;
     }
@@ -70,7 +70,7 @@ void Disciplina::calcula_prioridade(unordered_map<string, Disciplina*>& disc){
         if(disc[codigo]->_prioridade < 0)
             disc[codigo]->calcula_prioridade(disc);
 
-        if(disc[codigo]->_ja_cursou);
+        if(disc[codigo]->_ja_cursou); // Se ja cursou, ignora
         else if(_prioridade <= disc[codigo]->_prioridade)
             _prioridade = disc[codigo]->_prioridade + 1;
     }

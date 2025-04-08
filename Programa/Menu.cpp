@@ -1,4 +1,14 @@
 #include "Menu.hpp"
+#include <cstdlib>
+
+
+void Menu::limpar_terminal(){
+#ifdef _WIN32
+    system("cls");  // Windows
+#else
+    system("clear"); // Linux / MacOS
+#endif
+}
 
 void Menu::exibir(vector<string> opcoes, bool opcao_voltar){
     while (true) {
@@ -24,9 +34,11 @@ void Menu::exibir(vector<string> opcoes, bool opcao_voltar){
 
         if(escolha.length() == 1 && (((size_t) escolha[0] <= ((size_t)'0' + opcoes.size()) && (escolha[0] >= ('1' - opcao_voltar))) || escolha[0] == '9')){
             _opcao_atual = escolha[0] - '0';
+            _titulo = "Opção selecionada: " + opcoes[_opcao_atual - 1];
             return;
         }
-        
+
+        limpar_terminal();
         cout << "Opção inválida. Tente novamente." << endl;
     }
 }

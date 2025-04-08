@@ -45,7 +45,7 @@ int main(){
                 "Ver exemplo de formatação correta para o arquivo"
             };
 
-            menu.set_titulo("Erro ao criar planejamento");
+            // menu.set_titulo("Erro ao criar planejamento");
             menu.exibir(opcoes, false);
             if(menu.opcao() == 1){
                 continue;
@@ -59,7 +59,7 @@ int main(){
         }
     }
 
-    menu.set_titulo("Menu Inicial");
+    // menu.set_titulo("Menu Inicial");
     vector<string> opcoes = {
         "Exportar planejamento por período",
         "Exportar planejamento por prioridade",
