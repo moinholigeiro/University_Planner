@@ -23,22 +23,21 @@
 using namespace std;
 
 void creditos(){
-    cout << endl;
+    Menu::limpar_terminal();
     cout << "Feito por: Daniel Moulin (Moinho)" << endl;
     cout << "\t- github.com/moinholigeiro" << endl;
 }
 
-int main(){
-    Planejamento* planner = nullptr;
-    Menu menu("Buscando " + string(ARQUIVO_INPUT_GRADE));
-
+bool importar_planejamento(Planejamento*& planner, Menu& menu){
     while(planner == nullptr){
+
         try{
             planner = new Planejamento(ARQUIVO_INPUT_GRADE, ARQUIVO_INPUT_FEITAS);
-        } catch(const exception& e){
+        } catch(const runtime_error& e){
             string continuar;
+            
             cout << "Crie o arquivo " << ARQUIVO_INPUT_GRADE << " com a grade do curso, e na formatação correta para continuar." << endl;
-            cout << "Confira o README.md para mais informações!" << endl;
+            cout << "Confira o README.md para mais informações!\n" << endl;
 
             vector<string> opcoes = {
                 "Continuar após ter criado o arquivo",
@@ -46,29 +45,41 @@ int main(){
             };
 
             // menu.set_titulo("Erro ao criar planejamento");
-            menu.exibir(opcoes, false);
-            if(menu.opcao() == 1){
-                continue;
-            } else if(menu.opcao() == 2){
-                cout << endl;
-                Planejamento::exemplo_de_formatacao(cout);
-            } else{
-                cout << "Encerrando..." << endl;
-                return 0;
+            while(true){
+                menu.exibir(opcoes, false);
+                if(menu.opcao() == 1){
+                    break;
+                } else if(menu.opcao() == 2){
+                    Planejamento::exemplo_de_formatacao(cout);
+                } else{
+                    cout << "Encerrando..." << endl;
+                    return false;
+                }
             }
         }
     }
+    return true;
+}
 
-    // menu.set_titulo("Menu Inicial");
+int main(){
+    Planejamento* planner = nullptr;
+    Menu menu("Buscando " + string(ARQUIVO_INPUT_GRADE));
+
+    Menu::limpar_terminal();
+
+    if(!importar_planejamento(planner, menu))
+        return 0;
+
+    menu.set_titulo("Menu Inicial");
     vector<string> opcoes = {
         "Exportar planejamento por período",
         "Exportar planejamento por prioridade",
         "Configurar",
         "Créditos"
     };
+
     while(true){
         menu.exibir(opcoes, false);
-        cout << "\n\n" << endl;
 
         if(menu.opcao() == 1){
             planner->set_modo_de_exportacao(Planejamento::Por_periodo);
@@ -88,6 +99,7 @@ int main(){
         } else{
             break;
         }
+        cout << endl;
     }
 
     delete planner;

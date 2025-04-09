@@ -10,12 +10,13 @@ Funcionalidades:
 * Análise atualizada: o programa importa do arquivo "Feitas.txt" as disciplinas já cursadas e realiza o planejamento dos novos períodos ignorando as mesmas
 
 A implementar:
+* Ter a opção de digitar manualmente, durante a execução, as disciplinas feitas e as disciplinas da grade
 * Tratar e notificar erros de formatação ou lógica, como a declaração de duas disciplinas de mesmo código, sejam com nomes/pré-requisitos iguais ou diferentes
-* Pular linhas vazias nos arquivos de entrada
+* ~~Pular linhas vazias nos arquivos de entrada~~
 * Ignorar todos os caracteres não alfanuméricos e deixar todos os minúsculos como maiúsculos, evitando duplicação de disciplinas na importação e análises
 * Avaliar e notificar possíveis erros de digitação ou formatação, como o caso das disciplinas não terem o tamanho de seus códigos iguais entre si
-* Limpar o terminal sempre que entrar em um novo menu
-* Prosseguir para o submenu apenas pressionando a tecla desejada (sem enter)
+* ~~Limpar o terminal sempre que entrar em um novo menu~~
+* ~~Prosseguir para o submenu apenas pressionando a tecla desejada (sem enter)~~
 * Colocar a funcionalidade de agenda de faltas, para controle de faltas durante o período atual
 * Importar diretamente do PDF (esse vai dar bastante trabalho...)
 * Implementar o submenu "Configurar", com opções de estipular regras, como a de definir uma quantidade máxima de disciplinas ou carga horária por período, na hora de exportar o planejamento

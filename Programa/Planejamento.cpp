@@ -2,7 +2,7 @@
 #include <list>
 
 #include "Planejamento.hpp"
-
+#include "Menu.hpp"
 
 void Planejamento::exemplo_de_formatacao(ostream& out){
     out << "Exemplo de formatação:" << endl;
@@ -38,14 +38,20 @@ void Planejamento::_importa_feitas(string caminho){
 
     if(input){
         while(getline(input, linha)){
-            if(linha.empty()) break;
+            if(input.eof()) break;
 
-            while(linha.back() <= ' ') linha.pop_back(); // Especialmente útil para formatação vinda de Windows ou entradas com caracteres em branco no final da linha
+            Menu::trim_back(linha);
+                
+            if(linha.empty()) continue;
+
             if(linha.front() <= ' ') continue;
 
             istringstream iss(linha);
             iss >> codigo; // Evita problemas caso o usuário não deixe na formatação adequada (deixe o nome da disciplina junto)
-            if(!_disciplinas[codigo]) _disciplinas[codigo] = new Disciplina(codigo);
+            Menu::uppercase(codigo); // Coloca o código todo em maiúsculo pra evitar duplicação de disciplinas
+            
+            if(!_disciplinas[codigo])
+                _disciplinas[codigo] = new Disciplina(codigo);
             _disciplinas[codigo]->set_cursou(true);
         }
         input.close();
@@ -63,15 +69,18 @@ void Planejamento::_importa_grade(string caminho){
     }
 
     while (getline(input, linha)) {
-        if(linha.empty()) break;
+        if(input.eof()) break;
 
-        while(linha.back() <= ' ') linha.pop_back(); // Especialmente útil para formatação vinda de Windows ou entradas com caracteres em branco no final da linha
-
-        if (linha[0] <= ' ' && _disciplinas[codigo]) {
-            linha.erase(0, 1); // Remove '\t'
+        Menu::trim_back(linha);
+        
+        if(linha.empty()) continue;
+        
+        if(linha[0] <= ' ' && _disciplinas[codigo]){
+            Menu::trim_front(linha);
 
             if (linha[0] == '-') { // Aqui, a linha é de co-requisito da disciplina em questão
                 linha.erase(0, 1); // Remove '-'
+                Menu::trim_front(linha);
 
                 _disciplinas[codigo]->adiciona_co_requisito(linha);
             } else { // Aqui, a linha é de pré-requisito da disciplina em questão
@@ -80,20 +89,17 @@ void Planejamento::_importa_grade(string caminho){
                 if(!_disciplinas[linha]) _disciplinas[linha] = new Disciplina(linha);
                 _disciplinas[linha]->adiciona_requisitadas(codigo);
             }
-        } else if (linha[0] <= ' ' && !_disciplinas[codigo]) {
-            if (linha[0] == '-') {
-                linha.erase(0, 1); // Remove '-'
-                cout << "Erro! não foi possível identificar a disciplina pela qual \'" << linha << "\' seja co-requisito!" << endl;
-            } else {
-                cout << "Erro! não foi possível identificar a disciplina pela qual \'" << linha << "\' seja pré-requisito!" << endl;
-            }
-        } else { // Aqui, a linha é a da disciplina em questão
+        } else if(linha[0] <= ' ' && !_disciplinas[codigo]){
+            cerr << "Erro!" << endl;
+            throw runtime_error("Não foi possível identificar a disciplina pela qual \'" + linha + "\' seja pré ou co-requisito!");
+        } else{ // Aqui, a linha é a da disciplina em questão
             istringstream iss(linha);
             iss >> codigo; // Primeiro token é o código
-            getline(iss, nome); // O restante é o nome
+            Menu::trim(codigo);
+            Menu::uppercase(codigo); // Coloca o código todo em maiúsculo pra evitar duplicação de disciplinas
 
-            if (!nome.empty() && nome[0] == ' ')
-                nome.erase(0, 1);
+            getline(iss, nome); // O restante é o nome
+            Menu::trim(nome);
             
             if(_disciplinas[codigo])
                 _disciplinas[codigo]->adiciona_nome(nome);
@@ -106,14 +112,20 @@ void Planejamento::_importa_grade(string caminho){
 }
 
 Planejamento::Planejamento(string caminho_grade, string caminho_feitos){
-    _importa_grade(caminho_grade);
-    _importa_feitas(caminho_feitos);
+    try{
+        _importa_grade(caminho_grade);
+        _importa_feitas(caminho_feitos);
 
-    for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
-        it->second->calcula_prioridade(_disciplinas);
+        for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
+            it->second->calcula_prioridade(_disciplinas);
 
-    for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
-        it->second->calcula_periodo(_disciplinas);
+        for (auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
+            it->second->calcula_periodo(_disciplinas);
+    } catch (const runtime_error& e) {
+        for(auto it = _disciplinas.begin(); it != _disciplinas.end(); it++)
+            delete it->second;
+        throw runtime_error(string(e.what()));
+    }
 }
 
 ostream& operator<<(ostream& out, Planejamento* p){
