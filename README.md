@@ -21,6 +21,8 @@ A implementar:
 * Importar diretamente do PDF (esse vai dar bastante trabalho...)
 * Implementar o submenu "Configurar", com opções de estipular regras, como a de definir uma quantidade máxima de disciplinas ou carga horária por período, na hora de exportar o planejamento
 * Opção de busca por código ou nome, inteligente, sendo feita mesmo com apenas parte da informação, e atualizada com o pressionar de cada tecla, em tempo real, para avaliar informações da disciplina como nome, código, pré-requisitos
+* Adicionar a funcionalidade de avaliar se as disciplinas são ofertadas em semestre ímpar/par/ambos e gerar o planejamento em cima dessas informações (fazendo de uma forma que o programa, a princípio, reconheça todas como ofertadas em ambos os períodos, com exceção daquelas que reconheça como diferente pelo arquivo. Se não existir nenhum arquivo, dar um warning p o usuário. Também dar um warning para cada disciplina que não aparece no arquivo, caso o arquivo exista)
+* Fazer o planejamento do período, com vários arquivos com as disciplinas ofertadas, por departamento (nomes como "Horario 1", "Horario 2", "Horario 3", etc, onde o programa vai lendo até não achar o "Horario {x+1}"), de acordo com as análises de conflito de horários e prioridades, exportando como um arquivo do excel, bem formatado e tals, se eu conseguir kk
 
 #
 Nota: eu ainda não sei mexer muito no README.md :v mas vou aprendendo com o tempo
