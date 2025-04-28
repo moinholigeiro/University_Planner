@@ -32,7 +32,7 @@ void Menu::limpar_terminal(){
 #endif
 }
 
-// Aqui eu só peguei do ChatGPT mesmo, na cara dura, confesso
+// Aqui eu só peguei do ChatGPT mesmo, na cara dura, confesso :v
 #if defined(_WIN32) || defined(_WIN64)
     #include <conio.h>
     char ler_caractere() {

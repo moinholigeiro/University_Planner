@@ -31,6 +31,40 @@ void Planejamento::exemplo_de_formatacao(ostream& out){
     out << endl;
 }
 
+// void Planejamento::_importa_equiv(string caminho){
+//     ifstream input(caminho);
+//     string linha;
+//     string codigo = "";
+
+//     if(input){
+//         while(getline(input, linha)){
+//             if(input.eof()) break;
+
+//             Menu::trim_back(linha);
+                
+//             if(linha.empty()) continue;
+        
+//             if(linha[0] <= ' ' && codigo != ""){
+//                 Menu::trim_front(linha);
+    
+//                 // _disciplinas[codigo]->adiciona_pre_requisito(linha);
+
+//                 // if(!_disciplinas[linha]) _disciplinas[linha] = new Disciplina(linha);
+//                 // _disciplinas[linha]->adiciona_requisitadas(codigo);
+//             }
+
+//             istringstream iss(linha);
+//             iss >> codigo; // Evita problemas caso o usuário não deixe na formatação adequada (deixe o nome da disciplina junto)
+//             Menu::uppercase(codigo); // Coloca o código todo em maiúsculo pra evitar duplicação de disciplinas
+            
+//             if(!_disciplinas[codigo])
+//                 _disciplinas[codigo] = new Disciplina(codigo);
+//             _disciplinas[codigo]->set_cursou(true);
+//         }
+//         input.close();
+//     }
+// }
+
 void Planejamento::_importa_feitas(string caminho){
     ifstream input(caminho);
     string linha;

@@ -17,6 +17,8 @@
 
 #define ARQUIVO_INPUT_FEITAS "../Arquivos/Feitas.txt"
 #define ARQUIVO_INPUT_GRADE "../Arquivos/Grade.txt"
+#define ARQUIVO_INPUT_TABELA_EQUIVALENCIA "../Arquivos/Tabela_de_Equivalencia.txt"
+
 #define ARQUIVO_OUTPUT_PLANEJ_PERIODO "../Arquivos/Planejamento por período.txt"
 #define ARQUIVO_OUTPUT_PLANEJ_PRIOR "../Arquivos/Planejamento por prioridade.txt"
 
@@ -68,7 +70,7 @@ int main(){
     Menu::limpar_terminal();
 
     if(!importar_planejamento(planner, menu))
-        return 0;
+        return 1;
 
     menu.set_titulo("Menu Inicial");
     vector<string> opcoes = {

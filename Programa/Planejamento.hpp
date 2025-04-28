@@ -11,6 +11,7 @@
 #include <stdexcept>
 
 #include <unordered_map>
+#include <unordered_set>
 
 #include "Excecao.hpp"
 #include "Disciplina.hpp"
@@ -20,9 +21,11 @@ using namespace std;
 class Planejamento{
 private:
 
+    // unordered_map<vector<string>*, vector<vector<string>>> _equivalencias; // vector<string> é o conjunto de disciplinas, que em geral vai ter o código de apenas uma disciplina
     unordered_map<string, Disciplina*> _disciplinas;
     int _modo_de_exportacao = Planejamento::Por_periodo;
 
+    // void _importa_equiv(string caminho);
     void _importa_feitas(string caminho);
     void _importa_grade(string caminho);
 

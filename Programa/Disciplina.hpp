@@ -22,6 +22,7 @@ private:
     int _prioridade = -1;
     bool _ja_cursou = false;
 
+    // vector<vector<string>> equivalencia;
     vector<string> pre_requisito;
     vector<string> co_requisito;
     vector<string> requisitadas;
