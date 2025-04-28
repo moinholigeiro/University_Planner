@@ -15,6 +15,8 @@
 #include "Excecao.hpp"
 #include "Menu.hpp"
 
+#include "_DEBUG.hpp"
+
 #define ARQUIVO_INPUT_FEITAS "../Arquivos/Feitas.txt"
 #define ARQUIVO_INPUT_GRADE "../Arquivos/Grade.txt"
 #define ARQUIVO_INPUT_TABELA_EQUIVALENCIA "../Arquivos/Tabela_de_Equivalencia.txt"
@@ -105,6 +107,24 @@ int main(){
     }
 
     delete planner;
+
+    // // ----------------------- DEBUG -------------------------
+    // string arq_per = ARQUIVO_OUTPUT_PLANEJ_PERIODO;
+    // string arq2_per_CORRETO = (arq_per.substr(0, arq_per.size() - sizeof(".txt") + 1));
+    // arq2_per_CORRETO += " - CORRETO.txt";
+
+    // string arq_prior = ARQUIVO_OUTPUT_PLANEJ_PRIOR;
+    // string arq2_prior_CORRETO = (arq_prior.substr(0, arq_prior.size() - sizeof(".txt") + 1));
+    // arq2_prior_CORRETO += " - CORRETO.txt";
+
+    // cout << arq2_per_CORRETO << endl;
+    // cout << arq2_prior_CORRETO << endl;
+
+    // if (!DEBUG::arquivos_iguais(arq_per, arq2_per_CORRETO))
+    //     cout << "ARQUIVO " << ARQUIVO_OUTPUT_PLANEJ_PERIODO << " ERRADO!" << endl;
+    // if (!DEBUG::arquivos_iguais(arq_per, arq2_per_CORRETO))
+    //     cout << "ARQUIVO " << ARQUIVO_OUTPUT_PLANEJ_PRIOR << " ERRADO!" << endl;
+    // // --------------------------------------------------------
 
     return 0;
 }

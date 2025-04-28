@@ -16,6 +16,8 @@
 #include "Excecao.hpp"
 #include "Disciplina.hpp"
 
+#include "Equivalencia.hpp"
+
 using namespace std;
 
 class Planejamento{
