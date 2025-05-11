@@ -27,7 +27,7 @@ private:
     unordered_map<string, Disciplina*> _disciplinas;
     int _modo_de_exportacao = Planejamento::Por_periodo;
 
-    // void _importa_equiv(string caminho);
+    void _importa_equiv(string caminho);
     void _importa_feitas(string caminho);
     void _importa_grade(string caminho);
 
@@ -40,7 +40,7 @@ public:
     };
 
     // Planejamento() = default;
-    Planejamento(string caminho_grade, string caminho_feitos);
+    Planejamento(string caminho_grade, string caminho_feitos, string caminho_equiv);
 
     static void exemplo_de_formatacao(ostream& out);
 
